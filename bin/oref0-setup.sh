@@ -111,8 +111,8 @@ case $i in
     -ht=*|--hardwaretype=*)
     hardwaretype="${i#*=}"
     ;;
-    -npm=*|--npm_install=*)
-    npm_option="${i#*=}"
+    -yarn=*|--yarn_install=*)
+    yarn_option="${i#*=}"
     shift
     ;;
     *)
@@ -678,7 +678,7 @@ if prompt_yn "" N; then
         echo Upgrading to node 8
         # Use nodesource setup script to add nodesource repository to sources.list.d
         sudo bash -c "curl -sL https://deb.nodesource.com/setup_8.x | bash -" || die "Couldn't setup node 8"
-        # Install nodejs and npm from nodesource
+        # Install nodejs and yarn from nodesource
         sudo apt-get install -y nodejs || die "Couldn't install nodejs"
     fi
 
@@ -741,11 +741,11 @@ if prompt_yn "" N; then
     echo Checking oref0 installation
     cd $HOME/src/oref0
     if git branch | grep "* master"; then
-        npm list -g --depth=0 | egrep oref0@0.6.[0] || (echo Installing latest oref0 package && sudo npm install -g oref0)
-    elif [[ ${npm_option,,} == "force" ]]; then
-        echo Forcing install of latest oref0 from $HOME/src/oref0/ && cd $HOME/src/oref0/ && npm run global-install
+        yarn list -g --depth=0 | egrep oref0@0.6.[0] || (echo Installing latest oref0 package && yarn install -g oref0)
+    elif [[ ${yarn_option,,} == "force" ]]; then
+        echo Forcing install of latest oref0 from $HOME/src/oref0/ && cd $HOME/src/oref0/ && yarn run global-install
     else
-        npm list -g --depth=0 | egrep oref0@0.6.[1-9] || (echo Installing latest oref0 from $HOME/src/oref0/ && cd $HOME/src/oref0/ && npm run global-install)
+        yarn list -g --depth=0 | egrep oref0@0.6.[1-9] || (echo Installing latest oref0 from $HOME/src/oref0/ && cd $HOME/src/oref0/ && yarn run global-install)
     fi
 
     cd $directory || die "Can't cd $directory"
@@ -1125,7 +1125,7 @@ if prompt_yn "" N; then
         echo xdrip-js selected as CGM, so configuring xdrip-js
         git clone https://github.com/xdrip-js/Logger.git $HOME/src/Logger
         cd $HOME/src/Logger
-        sudo npm run global-install
+        yarn run global-install
         touch /tmp/reboot-required
     fi
 
@@ -1254,7 +1254,7 @@ if prompt_yn "" N; then
 	else
             cd $HOME/src && git clone git://github.com/openaps/openaps-menu.git || (cd openaps-menu && git checkout master && git pull)
 	fi
-        cd $HOME/src/openaps-menu && sudo npm install
+        cd $HOME/src/openaps-menu && yarn install
         cp $HOME/src/openaps-menu/openaps-menu.service /etc/systemd/system/ && systemctl enable openaps-menu
     fi
 

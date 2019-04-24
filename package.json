@@ -4,7 +4,7 @@
   "description": "openaps oref0 reference implementation of the reference design",
   "scripts": {
     "test": "make test",
-    "global-install": "npm install && sudo npm link && sudo npm link oref0 && sudo npm install -g && npm install -g"
+    "global-install": "yarn install && yarn link && yarn link oref0 && yarn install -g"
   },
   "repository": {
     "type": "git",
