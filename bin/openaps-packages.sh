@@ -26,8 +26,9 @@ if ! nodejs --version | grep -e 'v8\.' -e 'v1[02468]\.' &> /dev/null ; then
             sudo bash -c "curl -sL https://deb.nodesource.com/setup_8.x | bash -" || die "Couldn't setup node 8"
             sudo apt-get install -y nodejs || die "Couldn't install nodejs"
         else
-            sudo apt-get install -y nodejs npm || die "Couldn't install nodejs and npm"
-            npm install npm@latest -g || die "Couldn't update npm"
+            sudo apt-get install -y nodejs || die "Couldn't install nodejs"
+            sudo curl -o- -L https://yarnpkg.com/install.sh | bash || die "Couldn't install yarn"
+            sudo yarn install || die "Couldn't update yarn"
         fi
         ## You may also need development tools to build native addons:
         ##sudo apt-get install gcc g++ make
@@ -37,6 +38,6 @@ sudo pip install -U openaps || die "Couldn't install openaps toolkit"
 sudo pip install -U openaps-contrib || die "Couldn't install openaps-contrib"
 sudo openaps-install-udev-rules || die "Couldn't run openaps-install-udev-rules"
 sudo activate-global-python-argcomplete || die "Couldn't run activate-global-python-argcomplete"
-sudo npm install -g json || die "Couldn't install npm json"
+sudo yarn install -g json || die "Couldn't install yarn json"
 echo openaps installed
 openaps --version

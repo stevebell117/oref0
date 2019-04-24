@@ -12,9 +12,10 @@ EOT
 
 apt-get install -y sudo
 sudo apt-get update
-sudo apt-get install -y git python python-dev python-software-properties python-numpy python-pip nodejs-legacy npm watchdog strace tcpdump screen acpid vim locate jq lm-sensors && \
+sudo apt-get install -y git python python-dev python-software-properties python-numpy python-pip nodejs-legacy watchdog strace tcpdump screen acpid vim locate jq lm-sensors && \
 ( curl -s https://bootstrap.pypa.io/ez_setup.py | sudo python ) && \
-sudo npm install -g json && \
+( curl -o- -L https://yarnpkg.com/install.sh | bash ) && \
+sudo yarn install -g json && \
 sudo easy_install -ZU setuptools && \
 mkdir ~/src
 cd ~/src && \
@@ -44,10 +45,10 @@ cd ~/src && \
 )
 test -d oref0 && \
 cd oref0 && \
-npm install && \
-sudo npm install -g && \
-sudo npm link && \
-sudo npm link oref0
+yarn install && \
+sudo yarn install -g && \
+sudo yarn link && \
+sudo yarn link oref0
 
 sudo openaps-install-udev-rules && \
 sudo activate-global-python-argcomplete && \
